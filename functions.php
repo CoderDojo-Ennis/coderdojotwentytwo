@@ -1,25 +1,25 @@
 <?php
 /**
- * CoderDojo Twenty-Two functions and definitions
+ * Twenty Twenty-Two functions and definitions
  *
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
- * @package CoderDojo
- * @subpackage CoderDojo_Twenty_Two
- * @since CoderDojo Twenty-Two 1.0
+ * @package WordPress
+ * @subpackage Twenty_Twenty_Two
+ * @since Twenty Twenty-Two 1.0
  */
 
 
-if ( ! function_exists( 'coderdojotwentytwo_support' ) ) :
+if ( ! function_exists( 'twentytwentytwo_support' ) ) :
 
 	/**
 	 * Sets up theme defaults and registers support for various WordPress features.
 	 *
-	 * @since CoderDojo Twenty-Two 1.0
+	 * @since Twenty Twenty-Two 1.0
 	 *
 	 * @return void
 	 */
-	function coderdojotwentytwo_support() {
+	function twentytwentytwo_support() {
 
 		// Add support for block styles.
 		add_theme_support( 'wp-block-styles' );
@@ -31,35 +31,50 @@ if ( ! function_exists( 'coderdojotwentytwo_support' ) ) :
 
 endif;
 
-add_action( 'after_setup_theme', 'coderdojotwentytwo_support' );
+add_action( 'after_setup_theme', 'twentytwentytwo_support' );
 
-if ( ! function_exists( 'coderdojotwentytwo_styles' ) ) :
+/**
+ * POST SUPPORT
+ * Set up for page excerpts
+ */
+function coderdojo_post_support() {
+
+  // Add default posts and comments RSS feed links to head.
+  add_post_type_support( 'page', 'excerpt' );
+
+}
+
+add_action( 'after_setup_theme', 'coderdojo_post_support' );
+
+if ( ! function_exists( 'twentytwentytwo_styles' ) ) :
 
 	/**
 	 * Enqueue styles.
 	 *
-	 * @since CoderDojo Twenty-Two 1.0
+	 * @since Twenty Twenty-Two 1.0
 	 *
 	 * @return void
 	 */
-	function coderdojotwentytwo_styles() {
+	function twentytwentytwo_styles() {
 		// Register theme stylesheet.
 		$theme_version = wp_get_theme()->get( 'Version' );
 
 		$version_string = is_string( $theme_version ) ? $theme_version : false;
 		wp_register_style(
-			'coderdojotwentytwo-style',
+			'twentytwentytwo-style',
 			get_template_directory_uri() . '/style.css',
 			array(),
 			$version_string
 		);
 
 		// Enqueue theme stylesheet.
-		wp_enqueue_style( 'coderdojotwentytwo-style' );
+		wp_enqueue_style( 'twentytwentytwo-style' );
 
 	}
 
 endif;
 
-add_action( 'wp_enqueue_scripts', 'coderdojotwentytwo_styles' );
+add_action( 'wp_enqueue_scripts', 'twentytwentytwo_styles' );
 
+// Add block patterns
+//require get_template_directory() . '/inc/block-patterns.php';
