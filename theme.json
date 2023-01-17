@@ -465,6 +465,14 @@
           }
         }
       },
+      "core/site-tagline": {
+        "spacing": {
+          "margin": {
+            "top": "var(--wp--preset--spacing--0)",
+            "bottom": "var(--wp--preset--spacing--10)"
+          }
+        }
+      },
       "core/site-title": {
         "elements": {
 					"link": {
@@ -487,6 +495,11 @@
           "fontFamily": "var(--wp--preset--font-family--league-gothic)",
           "fontStyle": "normal",
           "fontWeight": "400"
+        }
+      },
+      "core/video": {
+        "border": {
+          "radius": "0.5rem"
         }
       }
 		},

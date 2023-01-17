@@ -56,6 +56,10 @@ header .wp-block-navigation {
   border-radius: 10px;
 }
 
+.wp-block-video >  video {
+  border-radius: 10px;
+}
+
 @media (max-width: 600px) {
   .wp-block-media-text.alignwide.is-stacked-on-mobile > .wp-block-media-text__media {
     
