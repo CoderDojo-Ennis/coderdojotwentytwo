@@ -33,8 +33,15 @@ header > .has-purple-20-white-background-color {
   background:linear-gradient(90deg,#FFFFFF 50%,#71458C 50%) !important;
 }
 
+header > .has-global-padding {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 header > .has-global-padding > .wp-block-group {
   gap: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 header .wp-block-navigation {
