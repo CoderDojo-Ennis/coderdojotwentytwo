@@ -2,6 +2,7 @@
 /*
 
 */
+$areas =  coderdojo_kata_get_area_terms();
 $term = get_queried_object();
 global $wp;
 $current_url = home_url( $wp->request )
@@ -31,58 +32,46 @@ $current_url = home_url( $wp->request )
         <header class="wp-block-template-part site-header">
 			<?php block_header_area(); ?>
         </header>
-        <section class="wp-block-group alignfull has-green-40-white-background-color has-background" id="hero">
-            <h1 class="has-text-align-center wp-block-post-title">CoderDojo Kata</h1>
-        </section>
-        <main class="is-layout-constrained wp-block-group" id="wp--skip-link--target">
-            <article class="is-layout-constrained wp-block-group">
-                <h1 class="has-text-align-center wp-block-query-title"><?php echo $term->name; ?></h1>
-                <p class="has-text-align-center"><?php echo $term->description; ?></p>
-            </article>
-            <aside class="is-layout-flow wp-block-query alignwide">
-		        <?php $areas =  coderdojo_kata_get_area_terms();
-		        foreach ($areas as $area):
+        <main class="wp-block-group has-global-padding has-green-95-white-background-color alignwide has-background is-layout-constrained" style="margin-top:0; padding-top: 0; padding-bottom:0;" id="wp--skip-link--target">
+	        <?php get_template_part( 'parts/post-hero', null,
+		        array(
+			        'post_thumbnail' => false,
+			        'post_title' => get_the_title(),
+			        'post_excerpt' => get_the_excerpt()
+		        )
+            ); ?>
+	        <?php foreach ($areas as $area):
+	        $groups = coderdojo_kata_get_group_terms($area->term_id, 5); ?>
+            <section class="wp-block-group alignfull <?php echo $area->slug; ?> has-background is-layout-constrained">
+                <h2 class="wp-block-heading has-text-align-center"><?php echo $area->name ?></h2>
+                <p class="has-text-align-center"><?php echo $area->description ?></p>
+                <div class="wp-block-query has-global-padding alignwide is-layout-flow">
+                    <ul class="is-flex-container columns-3 wp-block-post-template wp-block-cards is-layout-flow">
+                        <?php foreach($groups as $group) :
+                            get_template_part( 'parts/post-template', null,
+                                array(
+                                    'post_link'=> get_term_link($group),
+                                    'post_thumbnail' => get_bloginfo('template_url') . '/assets/images/' . $group->slug . '.png',
+                                    'post_title' => $group->name,
+                                    'post_excerpt' => $group->description,
+                                    'post_level' => false
+                            ));
+			            endforeach;
 
-			        $groups = coderdojo_kata_get_group_terms($area->term_id, 5);
-
-			        echo '<section class="section">';
-			        echo '<h2 class="has-text-align-center">' . $area->name . '</h2>';
-			        echo '<p class="has-text-align-center">' . $area->description . '</p>';
-			        echo '<ul class="is-layout-flow is-flex-container columns-3 wp-block-post-template wp-block-cards">';
-
-			        $count = 0;
-			        foreach($groups as $group) :
-				        if($count < 5) :?>
-                            <li class="wp-block-post post-18 pathway type-pathway status-publish has-post-thumbnail hentry collection-scratch">
-                                <figure class="alignwide wp-block-post-featured-image">
-                                    <a href="<?php echo get_term_link($group)?>" target="_self">
-                                        <img width="688" height="361" src="<?php echo get_bloginfo('template_url') . '/assets/images/' . $group->slug . '.png' ?>" class="attachment-post-thumbnail size-post-thumbnail wp-post-image">
-                                    </a>
-                                </figure>
-                                <h2 class="has-text-align-center wp-block-post-title">
-                                    <a href="<?php echo get_term_link($group) ?>" target="_self"><?php echo $group->name ?></a>
-                                </h2>
-                                <div class="has-text-align-center wp-block-post-excerpt">
-                                    <p class="wp-block-post-excerpt__excerpt"><?php echo $group->description ?></p>
-                                </div>
-                            </li> <?php
-				        endif;
-				        ++$count;
-			        endforeach;
-
-			        if($count == 5) :
-				        echo '<li class="section-list-item sushi-cards">';
-				        echo '<a class="card-link" href="' . $current_url . '/' . $area->slug . '">';
-				        echo '<h3 class="card-heading">View All</h3>';
-				        echo '</a>';
-				        echo '</li>';
-			        endif;
-
-			        echo '</ul>';
-			        echo '</section>';
-		        endforeach; ?>
-
-            </aside>
+                        if(count($groups) == 5) :
+	                        get_template_part( 'parts/post-template', null,
+		                        array(
+			                        'post_link'=> $current_url . '/' . $area->slug,
+			                        'post_thumbnail' => false,
+			                        'post_title' => "View All",
+			                        'post_excerpt' => "",
+			                        'post_level' => false
+		                        ));
+                        endif;?>
+                    </ul>
+                </div>
+            </section>
+	        <?php endforeach; ?>
         </main>
         <footer class="wp-block-template-part site-footer">
 			<?php block_footer_area(); ?>

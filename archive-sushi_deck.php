@@ -67,6 +67,7 @@
                     'post_level' => false
                     ));
                 endwhile;
+		            posts_nav_link();
                 else:
                     _e( 'Sorry, no posts matched your criteria.', 'textdomain' );
                 endif; ?>

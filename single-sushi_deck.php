@@ -47,35 +47,65 @@
     <header class="wp-block-template-part site-header">
         <?php block_header_area(); ?>
     </header>
-    <section class="is-layout-constrained wp-block-group alignfull has-green-40-white-background-color has-background" id="hero">
-        <section class="is-layout-flex wp-block-columns alignwide">
-            <div class="is-layout-flow wp-block-column" style="flex-basis:60%">
-                <h1 class="wp-block-post-title"><?php echo get_the_title() ?></h1>
-                <div class="wp-block-post-excerpt">
-                    <p class="wp-block-post-excerpt__excerpt"><?php echo get_the_excerpt() ?></p>
-                </div>
-            </div>
-            <div class="is-layout-flow wp-block-column" style="flex-basis:40%">
-                <figure class="wp-block-post-featured-image">
-				    <?php the_post_thumbnail() ?>
-                </figure>
-            </div>
-        </section>
-    </section>
-    <main class="is-layout-constrained wp-block-group has-green-95-white-background-color has-background" id="wp--skip-link--target">
+    <?php get_template_part( 'parts/post-hero', null,
+    array(
+    'post_thumbnail' => get_the_post_thumbnail_url(),
+    'post_title' => get_the_title(),
+    'post_excerpt' => get_the_excerpt()
+    ));?>
+    <main class="is-layout-constrained has-green-95-white-background-color has-background wp-block-group" id="wp--skip-link--target">
         <section class="is-layout-flex wp-container-13 wp-block-columns alignwide">
-            <aside class="is-layout-flow wp-block-column has-white-background-color has-background" style="flex-basis:25%">
-                <ul class="wp-block-page-list">
-                    <li class="wp-block-pages-list__item">
-                        <a class="wp-block-pages-list__item__link" href="http://kata-blank.local/sample-page/">Sample Page</a>
-                    </li>
-                    <li class="wp-block-pages-list__item">
-                        <a class="wp-block-pages-list__item__link" href="http://kata-blank.local/sample-page-2/">Sample Page</a>
-                    </li>
-                </ul>
+            <aside class="is-layout-flow wp-block-column " style="flex-basis:25%">
+                <details open class="wp-block-details wp-block-card">
+                    <summary class="wp-block-summary">
+                        <h4 class="wp-block-post-title"><?php echo esc_html__( "Editor", "coderdojotwentytwo" ) ?></h4>
+                    </summary>
+                    <div class="wp-block-details__details">
+                    </div>
+                </details>
+                <details open class="wp-block-details wp-block-card">
+                    <summary class="wp-block-summary">
+                        <h4 class="wp-block-post-title"><?php echo esc_html__( "Table of Contents", "coderdojotwentytwo" ) ?></h4>
+                    </summary>
+                    <div class="wp-block-details__details">
+                    <ul class="wp-block-page-list" style="margin-top:0; padding:20px;">
+                        <li class="wp-block-pages-list__item">
+                            <a class="wp-block-pages-list__item__link" href="<?php echo get_the_permalink() ?>">Introduction</a>
+                        </li>
+		                <?php $sushi_cards = get_posts( array(
+			                'title_li'    => '',
+			                'post_parent'    => $post->ID,
+			                'post_type'   => 'sushi_card',
+			                'orderby' => 'menu_order',
+			                'order' => 'ASC',
+			                'posts_per_page' => -1
+		                ) );
+		                foreach($sushi_cards as $sushi_card) : ?>
+                            <li class="wp-block-pages-list__item">
+                                <a class="wp-block-pages-list__item__link" href="<?php echo get_the_permalink().$sushi_card->post_name?>"><?php echo $sushi_card->post_title ?></a>
+                            </li>
+		                <?php endforeach; ?>
+                    </ul>
+                    </div>
+                </details>
+                <details open class="wp-block-details wp-block-card">
+                    <summary class="wp-block-summary">
+                        <h4 class="wp-block-post-title"><?php echo esc_html__( "Originally created by:", "coderdojotwentytwo" ) ?></h4>
+                    </summary>
+                    <div class="wp-block-details__details">
+                    </div>
+                </details>
             </aside>
-            <article class="is-layout-flow wp-block-column has-white-background-color has-background" style="flex-basis:75%">
+            <article class="is-layout-flow wp-block-column wp-block-card" style="flex-basis:75%; padding:20px;">
 				<?php echo get_the_content() ?>
+	            <?php
+	            if ($sushi_cards) :?>
+                    <div class="wp-block-buttons is-content-justification-right is-layout-flex">
+                        <div class="wp-block-button">
+                            <a class="wp-block-button__link wp-element-button" href="<?php echo get_permalink($sushi_cards[0]->ID) ?>">Next</a>
+                        </div>
+                    </div>
+	            <?php endif; ?>
             </article>
         </section>
     </main>

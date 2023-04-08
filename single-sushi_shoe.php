@@ -131,7 +131,18 @@
 <!-- /wp:html -->
 <!-- /wp:post-template --></div>
 <!-- /wp:query --></div>
-<!-- /wp:group -->'
+<!-- /wp:group -->
+<!-- wp:media-text {"mediaPosition":"right","mediaId":5003,"mediaLink":"http://coderdojo.local/kata/projects/swarms-schools-and-flocks/swarms-schools-flocks/","mediaType":"image","verticalAlignment":"center"} -->
+<div class="wp-block-media-text alignwide has-media-on-the-right is-stacked-on-mobile is-vertically-aligned-center"><div class="wp-block-media-text__content"><!-- wp:paragraph {"placeholder":"Content…"} -->
+<p>Hello 1</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons"><!-- wp:button -->
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button">Start</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons --></div><figure class="wp-block-media-text__media"><img src="http://coderdojo.local/wp-content/uploads/2023/03/swarms-schools-flocks.png" alt="" class="wp-image-5003 size-full"/></figure></div>
+<!-- /wp:media-text -->'
     );?>
     <?php wp_head(); ?>
 </head>
@@ -142,51 +153,40 @@
     <header class="wp-block-template-part site-header">
         <?php block_header_area(); ?>
     </header>
-    <section class="is-layout-constrained wp-block-group alignfull has-green-40-white-background-color has-background" id="hero">
-        <section class="is-layout-flex wp-block-columns alignwide">
-            <div class="is-layout-flow wp-block-column" style="flex-basis:60%">
-                <h1 class="wp-block-post-title"><?php echo get_the_title() ?></h1>
-                <div class="wp-block-post-excerpt">
-                    <p class="wp-block-post-excerpt__excerpt"><?php echo get_the_excerpt() ?></p>
-                </div>
-            </div>
-            <div class="is-layout-flow wp-block-column" style="flex-basis:40%">
-                <figure class="wp-block-post-featured-image">
-					<?php the_post_thumbnail() ?>
-                </figure>
-            </div>
-        </section>
-    </section>
-    <main class="is-layout-constrained wp-block-group" id="wp--skip-link--target">
+	<?php get_template_part( 'parts/post-hero', null,
+		array(
+			'post_thumbnail' => get_the_post_thumbnail_url(),
+			'post_title' => get_the_title(),
+			'post_excerpt' => get_the_excerpt()
+		));?>
+    <main class="is-layout-constrained has-green-95-white-background-color has-background wp-block-group" id="wp--skip-link--target">
         <article class="is-layout-flex wp-container-10 wp-block-columns alignwide">
 	        <?php echo get_the_content() ?>
         </article>
         <aside class="is-layout-flow wp-block-query alignwide">
-            <ul class="is-layout-flow wp-block-post-template wp-block-cards">
+            <ul class="is-layout-flow wp-block-post-template">
                 <?php foreach($posts as $post) : ?>
-                    <li class="wp-block-post post-47 project type-project status-publish has-post-thumbnail hentry">
-                        <details open>
-                            <summary>
+                    <li class="wp-block-post wp-block-card post-47 project type-project status-publish has-post-thumbnail hentry">
+                        <details open class="wp-block-details">
+                            <summary class="wp-block-summary">
                                 <h2 class="wp-block-post-title"><?php echo get_the_title() ?></h2>
                             </summary>
-                            <hr class="wp-block-separator alignwide has-alpha-channel-opacity is-style-wide">
-                            <div class="is-layout-flex wp-container-13 wp-block-columns alignwide">
-                                <div class="is-layout-flow wp-block-column" style="flex-basis:50%">
+                            <div class="wp-block-media-text wp-block-details__details alignwide has-media-on-the-right is-stacked-on-mobile is-vertically-aligned-center">
+                                <div class="wp-block-media-text__content">
                                     <div class="wp-block-post-excerpt">
-                                        <p class="wp-block-post-excerpt__excerpt">Make an animation of a rocket propelling a satellite into orbit </p>
+                                        <p class="wp-block-post-excerpt__excerpt"><?php the_excerpt() ?></p>
                                     </div>
-                                    <div class="is-layout-flex wp-block-buttons">
+                                    <div class="wp-block-buttons is-layout-flex">
                                         <div class="wp-block-button">
-                                            <a class="wp-block-button__link wp-element-button" href="<?php echo get_permalink() ?>" target="_self">Start Project</a></div>
+                                            <a class="wp-block-button__link wp-element-button" href="<?php echo get_permalink() ?>" target="_self">Start Project</a>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="is-layout-flow wp-block-column">
-                                    <figure class="wp-block-post-featured-image">
-                                        <a href="<?php echo get_permalink() ?>" target="_self">
-											<?php the_post_thumbnail() ?>
-                                        </a>
-                                    </figure>
-                                </div>
+                                <figure class="wp-block-media-text__media">
+                                    <a href="<?php echo get_permalink() ?>" target="_self">
+		                                <?php the_post_thumbnail() ?>
+                                    </a>
+                                </figure>
                             </div>
                         </details>
                     </li>

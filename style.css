@@ -59,6 +59,12 @@ header .wp-block-navigation {
   padding-block: 1.875rem;
 }
 
+#hero .wp-block-columns,
+#hero .wp-block-post-featured-image {
+  margin-bottom: 0;
+
+}
+
 .wp-block-media-text.alignwide.is-stacked-on-mobile > .wp-block-media-text__media >  img {
   border-radius: 10px;
 }
@@ -103,6 +109,42 @@ header .wp-block-navigation {
   background-color: #FFFFFF;
   border-radius: 10px;
   box-shadow: 0 0 1.25rem 0 rgba(0, 0, 0, 0.15);
+  transition: 0.3s;
+}
+
+.columns-3.wp-block-post-template >.wp-block-post.wp-block-card:hover {
+  margin-top: -4px;
+  margin-bottom: 4px;
+}
+
+.wp-block-card:hover > .wp-block-post-title {
+  text-decoration: underline;
+}
+
+.wp-block-details {
+margin-bottom: 10px;
+}
+
+.wp-block-summary {
+  cursor: pointer;
+  padding: 20px;
+}
+
+.wp-block-details__details {
+  border-top: 1px solid;
+  padding: 20px;
+}
+
+.wp-block-media-text.wp-block-details__details {
+  margin-top: 0;
+}
+
+.wp-block-image {
+  border-radius: 10px;
+}
+
+.wp-block-summary > * {
+  display: inline;
 }
 
 .wp-block-cards > .wp-block-post > figure {
@@ -133,3 +175,39 @@ header .wp-block-navigation {
 .wp-block-button__link.has-white-background-color {
   border-color: var(--wp--preset--color--white);
 }
+
+.wp-block-group.software {
+  background-image: url(assets/icons/scratch.svg);
+  background-color: #fff4e8; /* Used if the image is unavailable */
+  background-position: left bottom; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+}
+
+.wp-block-group.hardware {
+  background-image: url(assets/icons/physical_computing.svg);
+  background-color: #e1d0ea; /* Used if the image is unavailable */
+  background-position: right bottom; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+}
+
+.wp-block-group.studio {
+  background-image: url(assets/icons/python.svg);
+  background-color: #e9eaf5; /* Used if the image is unavailable */
+  background-position: left bottom; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+}
+
+.wp-block-group.arcade {
+  background-image: url(assets/icons/html_css.svg);
+  background-color: #feeeed; /* Used if the image is unavailable */
+  background-position: right bottom; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+}
+
+.wp-block-group.other {
+  background-image: url(assets/icons/unity.svg);
+  background-color: #f3ecf7; /* Used if the image is unavailable */
+  background-position: left bottom; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+}
+
